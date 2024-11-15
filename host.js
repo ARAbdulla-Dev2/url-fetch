@@ -13,8 +13,8 @@ const PORT = 80;
 // API key for security
 const API_KEY = "dzhdJ6Ty9jTH2D56-H171z83j319dj61d";
 
-// Middleware to enforce API key validation on all routes
-app.use((req, res, next) => {
+// Middleware to enforce API key validation only for specific routes (excluding /stream)
+app.use('/api/*', (req, res, next) => {
   const apiKey = req.query.apiKey || req.headers['x-api-key'];
   if (apiKey !== API_KEY) {
     return res.status(403).json({ error: "Invalid or missing API key" });
